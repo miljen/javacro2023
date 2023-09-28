@@ -1,26 +1,22 @@
-// package com.myorg;
+package com.myorg;
 
-// import software.amazon.awscdk.App;
-// import software.amazon.awscdk.assertions.Template;
-// import java.io.IOException;
+import software.amazon.awscdk.App;
+import software.amazon.awscdk.assertions.Template;
+import java.io.IOException;
 
-// import java.util.HashMap;
+import org.junit.jupiter.api.Test;
 
-// import org.junit.jupiter.api.Test;
+public class DemoTest {
 
-// example test. To run these tests, uncomment this file, along with the
-// example resource in java/src/main/java/com/myorg/DemoStack.java
-// public class DemoTest {
+    @Test
+    public void testStack() throws IOException {
+        App app = new App();
+        DemoStack stack = new DemoStack(app, "test");
 
-//     @Test
-//     public void testStack() throws IOException {
-//         App app = new App();
-//         DemoStack stack = new DemoStack(app, "test");
+        Template template = Template.fromStack(stack);
 
-//         Template template = Template.fromStack(stack);
-
-//         template.hasResourceProperties("AWS::SQS::Queue", new HashMap<String, Number>() {{
-//           put("VisibilityTimeout", 300);
-//         }});
-//     }
-// }
+        template.resourceCountIs("AWS::DynamoDB::Table", 1);
+        template.resourceCountIs("AWS::Lambda::Function", 1);
+        template.resourceCountIs("AWS::ApiGateway::RestApi", 1);
+    }
+}
