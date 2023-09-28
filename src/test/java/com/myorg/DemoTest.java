@@ -2,14 +2,13 @@ package com.myorg;
 
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.assertions.Template;
-import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
 public class DemoTest {
 
     @Test
-    public void testStack() throws IOException {
+    public void testStack() {
         App app = new App();
         DemoStack stack = new DemoStack(app, "test");
 
