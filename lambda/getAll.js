@@ -5,14 +5,13 @@ exports.handler = async (event) => {
     const tableName = process.env.DDB_TABLE_NAME;
     const httpMethod = event.httpMethod;
 
-    switch (httpMethod) {
-        case 'GET':
-            return await getAllItems(tableName);
-        default:
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: 'Invalid HTTP method' }),
-            };
+    if (httpMethod === 'GET') {
+        return await getAllItems(tableName);
+    } else {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ message: 'Invalid HTTP method' }),
+        };
     }
 };
 
